@@ -1,16 +1,18 @@
 version: '2'
 services:
+
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+
   kafka:
     image: wurstmeister/kafka
     ports:
       - "9092:9092"
       - "9094:9094"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://localhost:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://kafka:9094
       KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
@@ -18,6 +20,7 @@ services:
       KAFKA_MESSAGE_MAX_BYTES: 999999999
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
     depends_on:
       - zookeeper
 
@@ -32,6 +35,29 @@ services:
     volumes:
       - 'redis_data:/bitnami/redis/data'
 
+  app:
+    build: .
+    volumes:
+      - ./server:/application
+      - app-python-site-packages:/usr/local/lib/python3.6/site-packages
+      - app-usr-local-bin:/usr/local/bin
+      - worker-data:/data/
+    ports:
+      - "7000:7000"
+    command: "faust --datadir=/data/work_6067 -A app worker -l info --web-port 6067"
+    depends_on:
+      - kafka
+
+
 volumes:
   redis_data:
+    driver: local
+
+  app-python-site-packages:
+    driver: local
+
+  app-usr-local-bin:
+    driver: local
+
+  worker-data:
     driver: local
