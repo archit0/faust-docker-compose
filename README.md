@@ -7,6 +7,6 @@ Rocksdb is also configured
 
 To run:
 
-`sh
+`
 docker-compose up -d
 `
