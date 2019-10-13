@@ -9,4 +9,9 @@ To run:
 
 `
 docker-compose up -d
+
+To restart docker
+`
+docker-compose restart
+`
 `
