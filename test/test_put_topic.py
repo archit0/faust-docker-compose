@@ -4,7 +4,7 @@ import time
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
 
-producer_instance = KafkaProducer(bootstrap_servers=['192.168.31.10:9094'])
+producer_instance = KafkaProducer(bootstrap_servers=['kafka:9094'])
 
 for i in range(0, 10):
 
@@ -15,7 +15,7 @@ for i in range(0, 10):
     }
     value_bytes = bytes(json.dumps(value), encoding='utf-8')
 
-    topic_name = 'sample_topic'
+    topic_name = 'read_orders'
 
     producer_instance.send(topic_name, key=None, value=value_bytes)
     producer_instance.flush()

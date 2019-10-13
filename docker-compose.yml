@@ -35,16 +35,27 @@ services:
     volumes:
       - 'redis_data:/bitnami/redis/data'
 
-  app:
+  app1:
     build: .
     volumes:
-      - ./server:/application
+      - ./test:/application
       - app-python-site-packages:/usr/local/lib/python3.6/site-packages
       - app-usr-local-bin:/usr/local/bin
-      - worker-data:/data/
-    ports:
-      - "7000:7000"
-    command: "faust --datadir=/data/work_6067 -A app worker -l info --web-port 6067"
+      - worker-data1:/data/
+    command: "faust --datadir=/data/work_6067 -A test_db_syncing worker -l info --web-port 6067"
+    # command: "tail -f /dev/null"
+    depends_on:
+      - kafka
+
+  app2:
+    build: .
+    volumes:
+      - ./test:/application
+      - app-python-site-packages:/usr/local/lib/python3.6/site-packages
+      - app-usr-local-bin:/usr/local/bin
+      - worker-data2:/data/
+    command: "faust --datadir=/data/work_6067 -A test_db_syncing worker -l info --web-port 6067"
+    # command: "tail -f /dev/null"
     depends_on:
       - kafka
 
@@ -59,5 +70,8 @@ volumes:
   app-usr-local-bin:
     driver: local
 
-  worker-data:
+  worker-data1:
+    driver: local
+
+  worker-data2:
     driver: local
