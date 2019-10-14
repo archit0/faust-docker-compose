@@ -1,9 +1,6 @@
 # faust-docker-compose
-Faust with rocksdb [dockerized]
 
-Contains dockerized faust for local development.
-
-Rocksdb is also configured
+Dockerize faust with rocksdb
 
 To run:
 `
@@ -15,3 +12,4 @@ To restart docker
 docker-compose restart
 `
 
+Note: do a `docker-compose restart` if code is changed
