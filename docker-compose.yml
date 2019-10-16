@@ -18,8 +18,10 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_MESSAGE_MAX_BYTES: 999999999
+      KAFKA_LOG_DIRS: /kafka/kafka-logs-1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - kafka_data:/kafka
 
     depends_on:
       - zookeeper
@@ -61,6 +63,9 @@ services:
 
 
 volumes:
+  kafka_data:
+    driver: local
+
   redis_data:
     driver: local
 
