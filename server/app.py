@@ -7,20 +7,39 @@ app = App(
     'app_main',
     broker='kafka://kafka:9094',
     store='rocksdb://',
+    table_standby_replicas=2,
 )
 
-topic = app.topic(
-    'sample_topic',
-    value_type=bytes,
-    partitions=1,
+read_topic = app.topic(
+    'rr',
+    partitions=2,
+)
+
+write_topic = app.topic(
+    'ww',
+    partitions=2,
 )
 
 
-@app.agent(topic)
-async def read_topic(streams):
+table = app.Table(
+    'test2_table',
+    partitions=2,
+)
+
+
+@app.agent(read_topic)
+async def read_topic_agent(streams):
     async for payload in streams:
-        print("RECEIVED:", payload)
-        print("DONE")
+        print("PRINTING ALL KEYS IN TABLE")
+        for each_key in table:
+            print(each_key)
+
+
+@app.agent(write_topic)
+async def write_topic_agent(streams):
+    async for payload in streams:
+        print("SETTING DATA", payload)
+        table[payload['value']] = True
 
 
 if __name__ == '__main__':
