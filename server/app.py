@@ -12,11 +12,13 @@ app = App(
 
 read_topic = app.topic(
     'rr',
+    internal=True,  # when internal=True, faust is responsible for creation and deletion of topics (default=False, kafka creates topic with default attributes for partition and others)
     partitions=2,
 )
 
 write_topic = app.topic(
     'ww',
+    internal=True,
     partitions=2,
 )
 
