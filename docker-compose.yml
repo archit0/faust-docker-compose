@@ -20,7 +20,6 @@ services:
       KAFKA_MESSAGE_MAX_BYTES: 999999999
       KAFKA_LOG_DIRS: /kafka/kafka-logs-1
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - kafka_data:/kafka
 
     depends_on:
