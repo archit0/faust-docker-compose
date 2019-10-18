@@ -40,8 +40,8 @@ services:
     build: .
     volumes:
       - ./server:/application
-      - app-python-site-packages:/usr/local/lib/python3.6/site-packages
-      - app-usr-local-bin:/usr/local/bin
+      - app-python-site-packages1:/usr/local/lib/python3.6/site-packages
+      - app-usr-local-bin1:/usr/local/bin
       - worker-data1:/data/
     # command: "faust --datadir=/data/work_6067 -A app worker -l info --web-port 6067"
     command: tail -f /dev/null
@@ -52,8 +52,8 @@ services:
     build: .
     volumes:
       - ./server:/application
-      - app-python-site-packages:/usr/local/lib/python3.6/site-packages
-      - app-usr-local-bin:/usr/local/bin
+      - app-python-site-packages2:/usr/local/lib/python3.6/site-packages
+      - app-usr-local-bin2:/usr/local/bin
       - worker-data2:/data/
     # command: "faust --datadir=/data/work_6067 -A app worker -l info --web-port 6067"
     command: tail -f /dev/null
@@ -68,10 +68,16 @@ volumes:
   redis_data:
     driver: local
 
-  app-python-site-packages:
+  app-python-site-packages1:
     driver: local
 
-  app-usr-local-bin:
+  app-usr-local-bin1:
+    driver: local
+   
+  app-python-site-packages2:
+    driver: local
+
+  app-usr-local-bin2:
     driver: local
 
   worker-data1:
