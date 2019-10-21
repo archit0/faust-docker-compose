@@ -1,13 +1,14 @@
 import time
-from faust import App
-from datetime import datetime
 import asyncio
+from datetime import datetime
+from faust import App
 
 
 app = App(
     'app_main',
     broker='kafka://kafka:9094',
     store='rocksdb://',
+    version=1,
 )
 
 PARTITITONS = 2
@@ -29,7 +30,7 @@ event_table = app.Table(
 async def event_topic_write(streams):
     async for payload in streams.events():
         print("Got data", payload)
-        event_table[payload.key.decode()] = payload.value
+        event_table[payload.key] = payload.value
 
 
 @app.page('/event/{key}/')

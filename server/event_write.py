@@ -11,7 +11,7 @@ while True:
     value = input("Enter value name: ")
 
 
-    key_bytes = bytes(key, encoding='utf-8')
+    key_bytes = bytes(json.dumps(key), encoding='utf-8')
     value_bytes = bytes(json.dumps(value), encoding='utf-8')
 
     topic_name = 'event_topic_write2'
