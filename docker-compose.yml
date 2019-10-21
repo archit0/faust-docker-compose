@@ -1,6 +1,18 @@
 version: '2'
 services:
 
+  monitor:
+    image: hopsoft/graphite-statsd
+    ports:
+      - 8000:80
+      - 8001:81
+      - 2003:2003
+      - 2004:2004
+      - 2023:2023
+      - 2024:2024
+      - 8125:8125
+      - 8126:8126
+
   zookeeper:
     image: wurstmeister/zookeeper
     ports:

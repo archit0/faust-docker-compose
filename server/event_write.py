@@ -1,17 +1,16 @@
 import json
 from datetime import datetime
-import time
 from kafka import KafkaProducer
-from kafka.errors import KafkaError
 
-producer_instance = KafkaProducer(bootstrap_servers=['kafka:9094'])
+producer_instance = KafkaProducer(
+    bootstrap_servers=['kafka:9094'],
+)
 
 while True:
     key = input("Enter key name: ")
     value = input("Enter value name: ")
 
-
-    key_bytes = bytes(key, encoding='utf-8')
+    key_bytes = bytes(json.dumps(key), encoding='utf-8')
     value_bytes = bytes(json.dumps(value), encoding='utf-8')
 
     topic_name = 'event_topic_write2'
