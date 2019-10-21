@@ -12,7 +12,7 @@ HOST = "http://localhost"
 PORT = "6067"
 TOPIC = "event_topic_write2"
 ROUTE = "event"
-
+MAX_NUM = 10000
 
 def put_data(num_events, from_num=0, topic_name=TOPIC):
     print(f"Adding {num_events} entries to topic: {topic_name}")
@@ -42,5 +42,5 @@ def get_value(key, route_name=ROUTE):
 
 
 if __name__ == '__main__':
-    put_data(10000)
-    get_data(10000)
+    put_data(MAX_NUM)
+    get_data(MAX_NUM)
