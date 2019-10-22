@@ -1,6 +1,15 @@
 version: '2'
 services:
 
+  monitor:
+    image: kamon/grafana_graphite
+    ports:
+      - 8000:80
+      - 8001:81
+      - 2003:2003
+      - 8125:8125
+      - 8126:8126
+
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
