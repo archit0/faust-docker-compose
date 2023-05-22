@@ -30,7 +30,7 @@ pycparser==2.19
 python-dateutil==2.8.0
 python-rocksdb==0.7.0
 pytz==2019.2
-requests==2.22.0
+requests==2.31.0
 robinhood-aiokafka==1.0.4
 setproctitle==1.1.10
 six==1.12.0
